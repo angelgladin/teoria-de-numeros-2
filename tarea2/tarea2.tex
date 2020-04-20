@@ -54,6 +54,8 @@
 \usepackage{listings}
 \usepackage{color}
 
+\usepackage{wasysym}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
@@ -284,9 +286,9 @@ $$ f(ab) = \gcd(ab, m) = \gcd(a,m) \cdot \gcd(b,m) = f(a) \cdot f(b). $$
 
 %%%%%%%% 5
 \item Sea $m \in \Z^+$, demuestra que la función
-\[ f(n) = \frac{\phi(mn)}{\phi(m)} \quad \text{es multiplicativa}\]
+\[ f(n) = \frac{\varphi(mn)}{\varphi(m)} \quad \text{es multiplicativa}\]
 \begin{proof}
-    
+    \Large{\frownie}
 \end{proof}
 
 %%%%%%%% 6
@@ -302,7 +304,7 @@ $a$ o $b$ no es un cuadrado entonces si producto no es un cuadrado. Por tanto la
 %%%%%%%% 7
 \item Demuestra que
 
-\[ \sum_{d \mid n} \frac{|\mu(d)|}{\phi(d)} = \frac{n}{\phi(n)} \]
+\[ \sum_{d \mid n} \frac{|\mu(d)|}{\varphi(d)} = \frac{n}{\varphi(n)} \]
 \begin{proof}
 Sea $n = p_1^{\alpha_1} \cdots p_k^{\alpha_k}$ donde $\alpha_i \geq 1$. Usando el hecho de que el cociente de dos
 funciones aritméticas multiplicativas es multiplicativa y al serlo se cumple que la función
@@ -311,8 +313,8 @@ Además tenemos que para cada numerador evaluado en la función de Möbius no ce
 
 Entonces con las observaciones previas, se tiene que
 \begin{align*}
-    \sum_{d \mid n} \frac{|\mu(d)|}{\phi(d)}
-        &= \prod_{i=1}^{k} \sum_{j = 0}^{a_i} \frac{|\mu(p_i^j)|}{\phi(p_i^j)}
+    \sum_{d \mid n} \frac{|\mu(d)|}{\varphi(d)}
+        &= \prod_{i=1}^{k} \sum_{j = 0}^{a_i} \frac{|\mu(p_i^j)|}{\varphi(p_i^j)}
             && \text{Evaluando cada una de las combs. de sus factores}\\
         &= \prod_{i=1}^{k} \left( 1 + \frac{1}{p_i - 1} \right)
             && \text{Como $|\mu(d)|=1$ y observando que,}\\
@@ -322,8 +324,8 @@ Entonces con las observaciones previas, se tiene que
         &= \prod_{i = 1}^{k} \frac{p_i}{p_i - 1} = \prod_{i = 1}^{k} \frac{1}{\frac{1}{p_i}(p_i - 1)}
             = \prod_{i = 1}^{k} \frac{1}{1 - \frac{1}{p_i}}
                 && \text{Reacomodo}\\
-        &= \frac{n}{\phi(n)}
-            && \text{Porque $\phi(n) = n\prod_{p \mid n} \left( 1 - \frac{1}{p}\right)$ y agrupando}
+        &= \frac{n}{\varphi(n)}
+            && \text{Porque $\varphi(n) = n\prod_{p \mid n} \left( 1 - \frac{1}{p}\right)$ y agrupando}
 \end{align*}
 \end{proof}
 
@@ -378,14 +380,31 @@ Por tanto $\sum_{d \mid n} \tau(d)^3 = \left( \sum_{d \mid n} \tau(d) \right)^2$
 \[ \sum_{k=1}^{n} f((k,n)) = \sum_{d \mid n} f(d)g \left( \frac{n}{d} \right) \]
 
 \begin{proof}
-    
+Recordando la función aritmética $N$ la cual $N(n)$ para toda $n$ y teniendo la siguiente identidad,
+\[
+    \sum_{k=1}^{n} (k,n) \mu((k,n)) = \mu(n) \tag{1}
+\]
+
+Tomando convenientemente $g = \varphi$, partiendo a $k$ por su máximo común múltiplo con $n$ da
+
+\begin{align*}
+    \sum_{k=1}^{n} f((k,n))
+        &= \sum_{d \mid n} \sum_{1 \leq k \leq n,\ (k,n)=d} f((k,n))\\
+        &= \sum_{d \mid n} f(d) \sum_{1 \leq k \leq n,\ (k,n)=d} 1\\
+        &= \sum_{d \mid n} f(d) \varphi \left( \frac{n}{d} \right)\\
+\end{align*}
+
+Ahora como $\varphi = N \ast \mu$ y aplicando la identidad $(1)$, se tiene
+\[
+    f \ast \varphi = (N \ast \mu) \ast (N \ast \mu) = (N^{-1} \ast N) \ast \mu = I \ast \mu = \mu.
+\]
 \end{proof}
 
 %%%%%%%% 10
 \item Sea $n \in \Z^+$, definimos $\rad(n)$ el radical de $n$ como la función multiplicativa que satisface que
 $\rad(p^\alpha) = p$ para todo $p$ número primo y $\alpha \geq 1$. Demuestra que
 
-\[ \rad(n) = \sum_{d \mid n} \phi(d) |\mu(d)| \]
+\[ \rad(n) = \sum_{d \mid n} \varphi(d) |\mu(d)| \]
 
 \begin{proof}
 Sea $n = p_1^{\alpha_1} \cdots p_k^{\alpha_k}$ con $\alpha_i \geq 1$.
@@ -402,14 +421,14 @@ Desarrollando en lado izquierdo de la ecuación,
 Desarrollando en lado derecho de la ecuación,
 
 \begin{align*}
-    \sum_{d \mid n} \phi(d) |\mu(d)|
-        &= \prod_{i=1}^{k} \sum_{d \mid p_i^{\alpha_i}} \phi(d) |\mu(d)|
+    \sum_{d \mid n} \varphi(d) |\mu(d)|
+        &= \prod_{i=1}^{k} \sum_{d \mid p_i^{\alpha_i}} \varphi(d) |\mu(d)|
             && \text{Por ser multiplicativa}\\
-        &= \prod_{i=1}^{k} \sum_{d \mid p_i} \phi(d) |\mu(d)|
+        &= \prod_{i=1}^{k} \sum_{d \mid p_i} \varphi(d) |\mu(d)|
         && \text{Por def. de func. de Möbius}\\
             \intertext{\centering
                 Además si se tenia $\alpha_i > 1$ su valor es cero y se cancela, y en otro caso 1.}
-        &= \prod_{i=1}^{k} (\phi(1) |\mu(1)|) + (\phi(p_i) |\mu(p_i)|)
+        &= \prod_{i=1}^{k} (\varphi(1) |\mu(1)|) + (\varphi(p_i) |\mu(p_i)|)
             = \prod_{i=1}^{k} 1 + (p_i-1)
             && \text{Evaluando}\\
         &= \prod_{i=1}^{k} p_i
