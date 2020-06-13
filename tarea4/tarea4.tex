@@ -1,0 +1,256 @@
+%%%
+ %
+ % Copyright (C) 2020 Ángel Iván Gladín García
+ %
+ % This program is free software: you can redistribute it and/or modify
+ % it under the terms of the GNU General Public License as published by
+ % the Free Software Foundation, either version 3 of the License, or
+ % (at your option) any later version.
+ %
+ % This program is distributed in the hope that it will be useful,
+ % but WITHOUT ANY WARRANTY; without even the implied warranty of
+ % MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ % GNU General Public License for more details.
+ %
+ % You should have received a copy of the GNU General Public License
+ % along with this program.  If not, see <http://www.gnu.org/licenses/>.
+%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\documentclass[letterpaper]{article}
+\usepackage[margin=.75in]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage[spanish]{babel}
+\decimalpoint
+
+\usepackage{mathrsfs}
+\usepackage{amsmath,amsthm,amssymb}
+\usepackage{wasysym}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\R}{\mathbb{R}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\title{
+    \vspace{-2.2em}
+        Universidad Nacional Autónoma de México\\
+        Facultad de Ciencias\\
+        Teoría de los números II\\
+    \vspace{.5cm}
+    \large
+        \textbf{Tarea 4 \emph{Armónicos y Promedios}}
+}
+\author{
+    Ángel Iván Gladín García\\
+    No. cuenta: 313112470\\
+    \texttt{angelgladin@ciencias.unam.mx}
+}
+\date{27 de Mayo de 2019}
+\maketitle
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{enumerate}
+
+%%%%%%%% 1
+\item Demostrar que para la función $\tau(n)$, que es la función cantidad de divisores, se cumple que
+\[
+    \tau(n) \ll n^{\frac{1}{3}}
+\]
+
+\begin{proof}
+Consideremos como primer caso potencias de un número primo fijo, $n = p^t$. Como $\tau(p^t) = t + 1$
+es menor que $p^{t/3}$ cuando $t$ crece porque $p^{t/3} = \exp(t \log(p) / 3)$ crece exponencialmente en $t$. Así.
+\[
+    t + 1 \ll t \quad\text{y}\quad t \ll \exp(t\log(p)/3) \quad\text{y así,}\quad
+    t + 1 \ll \exp(t\log(p)/3)
+\]
+
+Supongamos que $p > e^3$ está fijo, así $\log(p) > 3$. $t+1$ y $\exp(t \log(p) / 3)$ son iguales a 1 cuando
+$t = 0$. Para ver cual crece más rápido, cómparemos sus derivadas cuando $t = 0$,
+
+\begin{align*}
+    \frac{d}{dt} (t+1) \Bigr|_{t = 0} = 1,
+\end{align*}
+
+\begin{align*}
+    \frac{d}{dt} (\exp(t \log(p)/3))\Bigr|_{t = 0}
+        &= \left( \frac{\log(p)}{3} \exp(t \log(p) / 3) \right)\Bigr|_{t = 0}\\
+        &= \frac{\log(p)}{3} > 1
+\end{align*}
+
+Entonces la exponenvias crece más rápido cuando $t = 0$, así
+\[
+    \tau(p^t) = t + 1 \leq p^{t/3} \quad \text{para toda } t,
+\]
+y para todos los primos $p \geq 23$. Así, $\tau(n) \leq n^{1/3}$, siempre y cuando $n$ solo por primos $p \geq 23$.
+
+
+Esto sigue dejando a los primos $p = 2,3,5, \ldots, 19$. Para cada uno de esos primos, determinados que la función
+$(t+1)p^{-t/3}$ tiene un máximo en $t = 3/\log(p) ,1$, el valor máximo es una contante $C(p)$. Así
+
+\[
+    t + 1 \leq C(p)p^{t/3} \quad\text{para toda }t,\quad \text{para } p=2,3,\ldots,19.
+\]
+
+Pongamos $C(p) = 1$ para $p > 19$ y sea $C$ el producto de todas las constante $C(p)$. Ahora para
+$n = \prod_i p_i^{t_i}$
+\[
+    \tau(\prod_i p_i^{t_i}) = \prod_i (t_i + 1) \leq \prod_i C(p_i) p_i^{t_i/3} \leq C \prod_i p_i^{t_i/3} = Cn^{1/3}
+\]
+
+\end{proof}
+
+%%%%%%%% 2
+\item Demostrar que no puede suceder que
+\[
+    \tau(n) \ll \ln(n)
+\]
+
+\begin{proof}
+Consideremos a $n$ de la forma $2^m \cdot 3^m$, entonces $\tau(n) = (m+1)^2$.
+
+Ahora $n = 6^m$, entonces $m = \log(n)/\log(6)$ y así $\tau(n) = (\log(n)/\log(6) +1 )^2$. Cambiemos las varibles con
+$x = \log(n)$. Ahora lo que queremos mostrar que para cualquier $C$, la desigualdad
+\[
+    \left(\frac{x}{\log(6)} + 1\right)^2 \leq Cx
+\]
+es falsa, expandiendo los términos se tiene,
+\[
+    \frac{x^2}{\log(6)^2} + \left( \frac{2}{\log(6) - C} \right) x + 1 \leq 0
+\]
+Y como la parte derecha de la desigualdad tiende a infinito, no se cumple que $\tau(n) \ll \ln(n)$.
+\end{proof}
+
+%%%%%%%% 3
+\item Demostrar que $\ln(n) < H_n < \ln(n) + 1$
+\begin{proof}
+En clase se demotró la siguiente desigualdad
+\begin{equation}
+    H_n - 1 < \log(n) < H_{n-1} \text{ para toda } n \geq 1
+\end{equation}
+
+La cual es usada para el siguiente teorema
+\begin{equation}
+    H_n = \log(n) + O(1) \text{ para toda } n \geq 1
+\end{equation}
+
+Dando como consecuencia lo siguiente,
+\begin{equation}
+    0 < H_n - \log(n) < 1
+    \label{eq:3.1}
+\end{equation}
+
+Pero si tomamos \eqref{eq:3.1} sumando $\log(n)$ en cada término de la desigualdad, se sigue,
+\begin{align*}
+    0 < H_n - \log(n) < 1\\
+    \log(n) < H_n < \log(n) + 1
+\end{align*}
+
+\end{proof}
+
+%%%%%%%% 4
+\item Demostrar que $n! \ll n \left( \frac{n}{e} \right)^n$
+\begin{proof}
+Citando un lema visto en clase que establece,
+\begin{equation}
+    \log(n!) = n\log(n) - n + O(\log(n))
+\end{equation}
+
+Teniendo como consecuencia que,
+\begin{equation}
+    \log(n!) - (n \log(n) - n) \ll \log(n) 
+\end{equation}
+
+Más aún, por $O$ sabemos que para alguna $C$ se tiene que
+\begin{equation}
+    \label{eq:4.1}
+    |\log(n!) - (n \log(n) - n)| \leq C\log(n) 
+\end{equation}
+
+Pero haciendo algunas observaciones en $n \log(n) - n$,
+\begin{align*}
+    n \log(n) - n
+        &= \log(n^n) - n && \text{Potencia en logarítmo } \log_b(x^p) = p\log_b x\\
+        &= \log(n^n) - \log(e^n)\\
+        &= \log((n/e)^n) && \text{Cociente en logarítmo } \log_b \frac{x}{y} = \log_b x - \log_b y
+\end{align*}
+
+Sustituyedo $n \log(n) - n$ en \eqref{eq:4.1} se tiene,
+\begin{equation}
+    |\log(n!) - \log((n/e)^n)| \leq C\log(n)
+\end{equation}
+
+Lo cual por definición de valor absoluto se sigue que,
+\begin{equation}
+    -C \log(n) \leq \log(n!) - \log((n/e)^n) \leq C\log(n)
+\end{equation}
+
+Tomando $\log(n!) - \log((n/e)^n) \leq C \log(n)$ tal que,
+\begin{equation}
+    e^{\log(n!) - \log((n/e)^n)} \leq e^{\log{n^C}} \quad\iff\quad
+    \frac{n!}{(n/e)^n} \leq n^C
+\end{equation}
+
+Teniendo así,
+\begin{equation}
+    n! \leq n^C (n/e)^n
+\end{equation}
+
+Y tomando $C=1$ implica que $n! \ll n \left( \frac{n}{e} \right)^n$.
+
+\end{proof}
+
+%%%%%%%% 5
+\item Demostrar sin usar puntos en una retícula, es decir, de manera totalmente algebraica que:
+\[
+    \sum_{k=1}^{n} \tau(k) = n\log(n) + O(n)
+\]
+
+\begin{proof}
+Sabemos que
+\[
+    \sum_{k=1}^{n} \tau(k) = \sum_{k = 1}^n \sum_{d \mid k} 1 = \sum_{\substack{c,d \\ cd \leq n}} 1.
+\]
+Tomando así todos los divisores de todos los enteros menores o iguales a $n$ que son exactactamente todas las
+parejas de enteros $(c,d)$ con $cd \leq n$.
+
+Pero si $cd \leq n$, entonces $d \leq n$ y $c \leq n/d$, así,
+\[
+    \sum_{k=1}^{n} \tau(k) = \sum_{d \leq n} \sum_{c \leq n/d} 1
+\]
+Tenemos que $\sum_{c \leq n/d} 1$ cuenta cuandos enteros $c$ son menores o iguales a $n/d$. Esto es $[n/d]$ la
+parte entera del número racional $n/d$. Y cuando redondeamos un número cambia por un error menor que 1,
+así $[n/d] = n/d + O(1)$. Teniendo así,
+\begin{align*}
+    \sum_{k=1}^{n} \tau(k)
+        &= \sum_{d \leq n} [n/d] = \sum_{d \leq n} \{ n/d + O(1) \}\\
+        &= \sum_{d \leq n} n/d + \sum_{d \leq n} O(1) = nH_n + O(n)
+\end{align*}
+Donde $nH_n$ viene de la definición de números harmónicos. Y $O(n)$ porque el error es a lo más 1 y corre de
+$d \leq n$ con $n$ diferentes errores. Como tenemos un error a los más $n$, entonces,
+\[
+    \sum_{k=1}^{n} = n \{ \log(n)+O(1) \} + O(n) = n\log(n) + O(n)
+\]
+\end{proof}
+
+\end{enumerate}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\end{document}
