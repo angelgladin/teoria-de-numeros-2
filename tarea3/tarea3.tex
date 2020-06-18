@@ -1,0 +1,102 @@
+%%%
+ %
+ % Copyright (C) 2020 Ángel Iván Gladín García
+ %
+ % This program is free software: you can redistribute it and/or modify
+ % it under the terms of the GNU General Public License as published by
+ % the Free Software Foundation, either version 3 of the License, or
+ % (at your option) any later version.
+ %
+ % This program is distributed in the hope that it will be useful,
+ % but WITHOUT ANY WARRANTY; without even the implied warranty of
+ % MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ % GNU General Public License for more details.
+ %
+ % You should have received a copy of the GNU General Public License
+ % along with this program.  If not, see <http://www.gnu.org/licenses/>.
+%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\documentclass[letterpaper]{article}
+\usepackage[margin=.75in]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage[spanish]{babel}
+\decimalpoint
+
+\usepackage{mathrsfs}
+\usepackage{amsmath,amsthm,amssymb}
+\usepackage{wasysym}
+
+\usepackage{cite}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\R}{\mathbb{R}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\title{
+    \vspace{-2.2em}
+        Universidad Nacional Autónoma de México\\
+        Facultad de Ciencias\\
+        Teoría de los números II\\
+    \vspace{.5cm}
+    \large
+        \textbf{Tarea 3 \emph{Generalización del Postulado de Bertrand}}
+}
+\author{
+    Ángel Iván Gladín García\\
+    No. cuenta: 313112470\\
+    \texttt{angelgladin@ciencias.unam.mx}
+}
+\date{17 de junio de 2020}
+\maketitle
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection*{Posutulado de Bertrand}
+Dice que para cualquier entero $n > 1$ siempre existe al menos un primo tal que,
+\[
+    n < p < 2n.
+\]
+
+\subsection*{¿Qué pasa con los interválos $2x$ a $3x$, o $x$ mayor igual que 2.}
+
+El artículo de M. El Bachraoui\cite{Bachraoui} nos habla de los primos en el intervalo $[2n, 3n]$, específicamente
+establece en un teorema que para cualquier enteros positivo $n < 1$ hay un número primo entre $2n$ y $3n$.
+Lo que hace es afirmar que hay un producto de primos entre $2n$ y $3n$, los cuales, si hay alguno
+que dividan a $\binom{3n}{2n}$. Usando una notación de un libro de Erdös tiene que,
+\[
+    T_1 = \prod_{p \leq \sqrt{3n}} p^{\beta(p)},\quad
+    T_2 = \prod_{\sqrt{3n} < p \leq 2n} p^{\beta(p)},\quad
+    T_2 = \prod_{2n+1 \leq p \leq 3n} p^{\beta(p)}
+\]
+tales ques,
+\[
+    \binom{3n}{2n} = T_1 T_2 T_3
+\]
+Donde acota cada $T_i$ y al final muestra la existencia de esos números.
+
+\subsection*{¿Qué se puede decir del intervalo $kx$ a $(k+1)x$ con $k>2$?}
+El el artículo\cite{shevelev2012intervals} se buscan esas $k$'s tal que se cumpla ese intervalo y se prueba al menos
+para $k = 1,2,3,5,9,14$ y no otros, al menos para $k \leq 50,000,000$. Además se tiene para cada $k = 1,2,3,5,9,14$
+se tiene un algoritmo para entror el más pequño $N_k(m)$, tal que, para $n \geq N_k(m)$, el intervalo $(kn, (k+1)n)$
+contiene al menos $m$ primos.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\bibliographystyle{unsrt}
+\bibliography{ref}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\end{document}
